@@ -1,4 +1,5 @@
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
+import CodeEditor from './components/code-editor';
 
 export default function App() {
   return (
@@ -7,7 +8,7 @@ export default function App() {
         <Panel>
           <PanelGroup direction="vertical">
             <Panel>
-              <div className="h-full border bg-red-100">Code Editor</div>
+              <CodeEditor />
             </Panel>
             <PanelResizeHandle className="h-2 bg-blue-300" />
             <Panel>
