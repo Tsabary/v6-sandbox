@@ -1,7 +1,3 @@
 export default function App() {
-  return (
-    <div>
-      <h1>Hello from Frontend Hire!</h1>
-    </div>
-  );
+  return <div className="text-3xl font-bold underline">Hello World!</div>;
 }
