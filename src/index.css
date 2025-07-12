@@ -1,1 +1,5 @@
 @import 'tailwindcss';
+
+.terminal {
+  @apply h-full;
+}
