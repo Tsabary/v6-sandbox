@@ -1,9 +1,7 @@
-type CodeFile = {
-  contents: string;
-};
+import type { FileNode } from '@webcontainer/api';
 
-type Template = {
-  files: Record<string, CodeFile>;
+export type Template = {
+  files: Record<string, FileNode>;
   entry: string;
   visibleFiles: string[];
 };
@@ -11,16 +9,19 @@ type Template = {
 export const VITE_REACT_TEMPLATE: Template = {
   files: {
     'App.jsx': {
-      contents: `export default function App() {
-  const data = "world"
- 
-  return <h1>Hello {data}</h1>
-}
-`,
+      file: {
+        contents: `export default function App() {
+    const data = "world"
+  
+    return <h1>Hello {data}</h1>
+  }
+  `,
+      },
     },
 
     'index.jsx': {
-      contents: `import { StrictMode } from "react";
+      file: {
+        contents: `import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
  
 import App from "./App";
@@ -31,51 +32,58 @@ root.render(
     <App />
   </StrictMode>
 );`,
+      },
     },
 
     'index.html': {
-      contents: `<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/index.jsx"></script>
-  </body>
-</html>
-`,
+      file: {
+        contents: `<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Vite App</title>
+    </head>
+    <body>
+      <div id="root"></div>
+      <script type="module" src="/index.jsx"></script>
+    </body>
+  </html>
+  `,
+      },
     },
 
     'package.json': {
-      contents: `{
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build",
-        "preview": "vite preview"
-    },
-    "dependencies": {
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0"
-    },
-    "devDependencies": {
-        "@vitejs/plugin-react": "3.1.0",
-        "vite": "4.1.4",
-        "esbuild-wasm": "0.17.12"
-    }
-}`,
+      file: {
+        contents: `{
+      "scripts": {
+          "dev": "vite",
+          "build": "vite build",
+          "preview": "vite preview"
+      },
+      "dependencies": {
+          "react": "^18.2.0",
+          "react-dom": "^18.2.0"
+      },
+      "devDependencies": {
+          "@vitejs/plugin-react": "3.1.0",
+          "vite": "4.1.4",
+          "esbuild-wasm": "0.17.12"
+      }
+  }`,
+      },
     },
     'vite.config.js': {
-      contents: `import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
- 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
-});
-`,
+      file: {
+        contents: `import { defineConfig } from "vite";
+  import react from "@vitejs/plugin-react";
+  
+  // https://vitejs.dev/config/
+  export default defineConfig({
+    plugins: [react()],
+  });
+  `,
+      },
     },
   },
   entry: 'App.jsx',

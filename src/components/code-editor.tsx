@@ -22,7 +22,7 @@ export default function CodeEditor() {
       <Editor
         theme="vs-dark"
         path={activeFile}
-        defaultValue={currentFile.contents}
+        defaultValue={currentFile.file.contents as string} // Ideally, worry about the encoding in production, for our example, this is fine.
         defaultLanguage={language}
       />
     </div>
