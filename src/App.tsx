@@ -2,6 +2,7 @@ import { WebContainer } from '@webcontainer/api';
 import React from 'react';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import CodeEditor from './components/code-editor';
+import { VITE_REACT_TEMPLATE } from './templates/react-vite';
 
 export default function App() {
   const [webContainer, setWebContainer] = React.useState<WebContainer | null>(
@@ -10,8 +11,9 @@ export default function App() {
 
   React.useEffect(() => {
     const createWebContainer = async () => {
-      const webContainer = await WebContainer.boot();
-      setWebContainer(webContainer);
+      const webContainerInstance = await WebContainer.boot();
+      await webContainerInstance.mount(VITE_REACT_TEMPLATE.files);
+      setWebContainer(webContainerInstance);
     };
 
     createWebContainer();
@@ -20,7 +22,7 @@ export default function App() {
     // But there is an issue with the current implementation of WebContainer that prevents it from being torn down.
     // https://github.com/stackblitz/webcontainer-core/issues/1125
     // return () => {
-    //   instance?.teardown();
+    //   webContainer?.teardown();
     //   setWebContainer(null);
     // };
   }, []);
