@@ -2,6 +2,7 @@ import { WebContainer } from '@webcontainer/api';
 import React from 'react';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import CodeEditor from './components/code-editor';
+import Preview from './components/preview';
 import Terminal from './components/terminal';
 import { VITE_REACT_TEMPLATE } from './templates/react-vite';
 
@@ -34,7 +35,7 @@ export default function App() {
         <Panel>
           <PanelGroup direction="vertical">
             <Panel>
-              <CodeEditor />
+              <CodeEditor webContainer={webContainer} />
             </Panel>
             <PanelResizeHandle className="h-2 bg-blue-300" />
             <Panel>
@@ -44,7 +45,7 @@ export default function App() {
         </Panel>
         <PanelResizeHandle className="w-2 bg-blue-300" />
         <Panel>
-          <div className="h-full border bg-red-100">Preview</div>
+          <Preview webContainer={webContainer} />
         </Panel>
       </PanelGroup>
     </div>
