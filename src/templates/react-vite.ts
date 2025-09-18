@@ -4,6 +4,8 @@ import { packageJson } from './app-files/package-json';
 import { viteConfig } from './app-files/vite-config';
 import { indexHtml } from './app-files/indexHtml';
 import { main } from './app-files/src/main';
+import { jsConfigJson } from './app-files/jsConfigJson';
+import { componentsJson } from './app-files/componentJson';
 
 export type Template = {
   files: FileSystemTree;
@@ -30,6 +32,12 @@ export const VITE_REACT_TEMPLATE: Template = {
       file: {
         contents: viteConfig,
       },
+    },
+    'jsconfig.json': {
+      file: { contents: jsConfigJson },
+    },
+    'components.json': {
+      file: { contents: componentsJson },
     },
 
     // ── src/
