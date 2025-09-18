@@ -3,3 +3,200 @@
 .terminal {
   @apply h-full;
 }
+
+/* Custom scrollbar styles */
+:root {
+  --scrollbar-thumb-light: #cbd5e1;
+  --scrollbar-thumb-hover-light: #94a3b8;
+  --scrollbar-track-light: #f8fafc;
+  --scrollbar-thumb-dark: #475569;
+  --scrollbar-thumb-hover-dark: #64748b;
+  --scrollbar-track-dark: #0f172a;
+}
+
+/* WebKit scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover-light);
+}
+
+/* Dark theme scrollbars */
+[data-theme='dark'] ::-webkit-scrollbar-track,
+.dark ::-webkit-scrollbar-track,
+body:has([href*='dark=true']) ::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-dark);
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb,
+.dark ::-webkit-scrollbar-thumb,
+body:has([href*='dark=true']) ::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-dark);
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb:hover,
+.dark ::-webkit-scrollbar-thumb:hover,
+body:has([href*='dark=true']) ::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover-dark);
+}
+
+/* Modern resize handle styles */
+.resize-handle {
+  position: relative;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+.resize-handle:hover {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.resize-handle:active {
+  background: rgba(59, 130, 246, 0.2);
+}
+
+/* Resize handle grip indicators */
+.resize-handle::before {
+  content: '';
+  position: absolute;
+  background: #cbd5e1;
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
+}
+
+.resize-handle:hover::before {
+  background: #3b82f6;
+}
+
+/* Horizontal resize handle (vertical separator) */
+.resize-handle[data-panel-group-direction='horizontal'] {
+  width: 12px;
+  cursor: col-resize;
+}
+
+.resize-handle[data-panel-group-direction='horizontal']::before {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: 40px;
+}
+
+/* Vertical resize handle (horizontal separator) */
+.resize-handle[data-panel-group-direction='vertical'] {
+  height: 12px;
+  cursor: row-resize;
+}
+
+.resize-handle[data-panel-group-direction='vertical']::before {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 4px;
+}
+
+/* Dark theme resize handles */
+[data-theme='dark'] .resize-handle::before,
+.dark .resize-handle::before,
+body:has([href*='dark=true']) .resize-handle::before {
+  background: #475569;
+}
+
+[data-theme='dark'] .resize-handle:hover::before,
+.dark .resize-handle:hover::before,
+body:has([href*='dark=true']) .resize-handle:hover::before {
+  background: #3b82f6;
+}
+
+[data-theme='dark'] .resize-handle:hover,
+.dark .resize-handle:hover,
+body:has([href*='dark=true']) .resize-handle:hover {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+[data-theme='dark'] .resize-handle:active,
+.dark .resize-handle:active,
+body:has([href*='dark=true']) .resize-handle:active {
+  background: rgba(59, 130, 246, 0.2);
+}
+
+/* XTerm terminal scrollbar customization */
+.xterm .xterm-viewport {
+  overflow-y: auto !important;
+}
+
+.xterm .xterm-viewport::-webkit-scrollbar {
+  width: 8px;
+}
+
+.xterm .xterm-viewport::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.xterm .xterm-viewport::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-light);
+  border-radius: 4px;
+  min-height: 20px;
+}
+
+.xterm .xterm-viewport::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover-light);
+}
+
+/* Hide scrollbar when not needed */
+.xterm .xterm-viewport::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.xterm .xterm-viewport:hover::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-light);
+}
+
+.xterm .xterm-viewport:hover::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover-light);
+}
+
+/* Dark theme XTerm scrollbars */
+[data-theme='dark'] .xterm .xterm-viewport::-webkit-scrollbar-track,
+.dark .xterm .xterm-viewport::-webkit-scrollbar-track,
+body:has([href*='dark=true']) .xterm .xterm-viewport::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+[data-theme='dark'] .xterm .xterm-viewport:hover::-webkit-scrollbar-thumb,
+.dark .xterm .xterm-viewport:hover::-webkit-scrollbar-thumb,
+body:has([href*='dark=true'])
+  .xterm
+  .xterm-viewport:hover::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-dark);
+}
+
+[data-theme='dark'] .xterm .xterm-viewport:hover::-webkit-scrollbar-thumb:hover,
+.dark .xterm .xterm-viewport:hover::-webkit-scrollbar-thumb:hover,
+body:has([href*='dark=true'])
+  .xterm
+  .xterm-viewport:hover::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover-dark);
+}
+
+/* XTerm specific styling */
+.xterm .xterm-screen {
+  padding-right: 0 !important;
+}
+
+.xterm {
+  padding: 8px;
+}

@@ -22,10 +22,23 @@ export default function Terminal({
     },
   });
 
+  // theme detection
+  const isLight = React.useMemo(() => {
+    if (typeof window === 'undefined') return false;
+    return new URLSearchParams(window.location.search).get('light') === 'true';
+  }, []);
+
   React.useEffect(() => {
     if (!terminalRef.current) return;
 
-    const terminal = new XTerminal({ convertEol: true });
+    const terminal = new XTerminal({
+      convertEol: true,
+      scrollback: 1000,
+      theme: {
+        background: isLight ? '#ffffff' : '#111827',
+        foreground: isLight ? '#374151' : '#f9fafb',
+      },
+    });
     const fitAddon = new FitAddon();
     fitAddonRef.current = fitAddon;
 
@@ -39,7 +52,7 @@ export default function Terminal({
       terminal.dispose();
       setTerminal(null);
     };
-  }, [terminalRef]);
+  }, [terminalRef, isLight]);
 
   React.useEffect(() => {
     if (!webContainer || !terminal) return;
@@ -71,7 +84,7 @@ export default function Terminal({
   }, [webContainer, terminal]);
 
   return (
-    <div className="h-full border bg-red-100" ref={ref}>
+    <div className={`h-full ${isLight ? 'bg-white' : 'bg-gray-900'}`} ref={ref}>
       <div className="h-full w-full" ref={terminalRef} />
     </div>
   );

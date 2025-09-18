@@ -38,21 +38,21 @@ export default function App() {
   }, []);
 
   return (
-    <div className="h-dvh p-2">
+    <div className="h-dvh">
       <PanelGroup direction="horizontal">
-        <Panel>
+        <Panel defaultSize={35} minSize={20}>
           <PanelGroup direction="vertical">
-            <Panel>
+            <Panel defaultSize={70} minSize={30}>
               <CodeEditor webContainer={webContainer} />
             </Panel>
-            <PanelResizeHandle className="h-2 bg-blue-300" />
-            <Panel>
+            <PanelResizeHandle className="resize-handle" />
+            <Panel defaultSize={30} minSize={15}>
               <Terminal webContainer={webContainer} />
             </Panel>
           </PanelGroup>
         </Panel>
-        <PanelResizeHandle className="w-2 bg-blue-300" />
-        <Panel>
+        <PanelResizeHandle className="resize-handle" />
+        <Panel defaultSize={65} minSize={30}>
           <Preview webContainer={webContainer} />
         </Panel>
       </PanelGroup>

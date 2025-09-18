@@ -19,7 +19,7 @@ export default function Preview({
   return (
     <iframe
       ref={iframeRef}
-      className="h-full w-full border-2"
+      className="h-full w-full border-0"
       src="loading.html"
     />
   );
