@@ -1,24 +1,24 @@
-export const tweet = `import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+export const ComponentsTweetJsx = `import { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
   useEntity,
   useEntityList,
   useUser,
   useIsEntitySaved,
-} from "@replyke/react-js";
+} from '@replyke/react-js';
 import {
   ThumbsUp,
   ThumbsDown,
   MessageCircle,
   MoreHorizontal,
   Bookmark,
-} from "lucide-react";
-import { ResponsiveDrawer } from "./ui/ResponsiveDrawer";
-import UserHoverCard from "./user-hover-card";
-import getUserAvatar from "../utils/getUserAvatar";
-import CollectionsDialog from "./collections-dialog";
-import ReportDialog from "./report-dialog";
-import { Dialog } from "./ui/dialog";
+} from 'lucide-react';
+import { ResponsiveDrawer } from './ui/ResponsiveDrawer';
+import UserHoverCard from './user-hover-card';
+import getUserAvatar from '../utils/getUserAvatar';
+import CollectionsDialog from './collections-dialog';
+import ReportDialog from './report-dialog';
+import { Dialog } from './ui/dialog';
 
 const formatTimestamp = (timestamp) => {
   const now = new Date();
@@ -29,13 +29,13 @@ const formatTimestamp = (timestamp) => {
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
   if (minutes < 2) {
-    return "Just now";
+    return 'Just now';
   } else if (minutes < 60) {
-    return minutes + "m";
+    return minutes + 'm';
   } else if (hours < 24) {
-    return hours + "h";
+    return hours + 'h';
   } else {
-    return days + "d";
+    return days + 'd';
   }
 };
 
@@ -54,7 +54,7 @@ export default function Tweet({ onAuthRequired, handleSelectEntity }) {
   const isAuthor = user?.id === entity?.user?.id;
 
   const { deleteEntity } = useEntityList({
-    listId: "home-tweets",
+    listId: 'home-tweets',
   });
 
   const { checkIfEntityIsSaved } = useIsEntitySaved();
@@ -73,14 +73,14 @@ export default function Tweet({ onAuthRequired, handleSelectEntity }) {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   useEffect(() => {
     if (user && entity?.id) {
       checkIfEntityIsSaved(entity.id).then((isSaved) =>
-        setIsEntitySaved(isSaved)
+        setIsEntitySaved(isSaved),
       );
     }
   }, [user, entity, checkIfEntityIsSaved]);
@@ -101,31 +101,34 @@ export default function Tweet({ onAuthRequired, handleSelectEntity }) {
   };
 
   return (
-    <div className="border-b border-gray-100 px-4 py-3 hover:bg-gray-50/50 transition-all duration-200">
+    <div className="border-b border-gray-100 px-4 py-3 transition-all duration-200 hover:bg-gray-50/50">
       <div className="flex flex-col space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <UserHoverCard userId={entity?.user?.id || ""}>
+            <UserHoverCard userId={entity?.user?.id || ''}>
               <Link
-                to={"/u/" + (entity?.user?.id || "")}
-                className="hover:opacity-80 transition-opacity"
+                to={'/u/' + (entity?.user?.id || '')}
+                className="transition-opacity hover:opacity-80"
               >
                 <img
-                  src={getUserAvatar(entity?.user?.id || "")}
-                  className="w-7 h-7 rounded-full bg-white shadow"
+                  src={getUserAvatar(entity?.user?.id || '')}
+                  className="h-7 w-7 rounded-full bg-white shadow"
                 />
               </Link>
             </UserHoverCard>
             <div className="flex items-center space-x-2 pb-0.5">
-              <UserHoverCard userId={entity?.user?.id || ""}>
-                <Link to={"/u/" + (entity?.user?.id || "")} className="hover:underline">
-                  <span className="font-semibold text-gray-900 text-sm">
+              <UserHoverCard userId={entity?.user?.id || ''}>
+                <Link
+                  to={'/u/' + (entity?.user?.id || '')}
+                  className="hover:underline"
+                >
+                  <span className="text-sm font-semibold text-gray-900">
                     @{entity?.user?.username}
                   </span>
                 </Link>
               </UserHoverCard>
               <span className="text-gray-400">·</span>
-              <span className="text-gray-500 text-xs">
+              <span className="text-xs text-gray-500">
                 {entity && formatTimestamp(new Date(entity.createdAt))}
               </span>
             </div>
@@ -133,19 +136,19 @@ export default function Tweet({ onAuthRequired, handleSelectEntity }) {
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setShowDropdown(!showDropdown)}
-              className="p-1.5 rounded-full hover:bg-gray-100 transition-colors opacity-60 hover:opacity-100"
+              className="rounded-full p-1.5 opacity-60 transition-colors hover:bg-gray-100 hover:opacity-100"
             >
               <MoreHorizontal size={14} className="text-gray-500" />
             </button>
             {showDropdown && (
-              <div className="absolute right-0 top-8 bg-white border border-gray-200 rounded-lg shadow-lg py-1 z-10 min-w-36">
+              <div className="absolute top-8 right-0 z-10 min-w-36 rounded-lg border border-gray-200 bg-white py-1 shadow-lg">
                 {isAuthor ? (
                   <button
                     onClick={() => {
                       setShowDropdown(false);
                       setShowDeleteConfirm(true);
                     }}
-                    className="w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                    className="w-full px-3 py-2 text-left text-sm text-red-600 transition-colors hover:bg-red-50"
                   >
                     Delete entity
                   </button>
@@ -155,7 +158,7 @@ export default function Tweet({ onAuthRequired, handleSelectEntity }) {
                       setShowDropdown(false);
                       setShowReportDialog(true);
                     }}
-                    className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                    className="w-full px-3 py-2 text-left text-sm text-gray-700 transition-colors hover:bg-gray-50"
                   >
                     Report entity
                   </button>
@@ -165,12 +168,12 @@ export default function Tweet({ onAuthRequired, handleSelectEntity }) {
           </div>
         </div>
 
-        <p className="text-gray-900 leading-relaxed text-sm ml-10">
+        <p className="ml-10 text-sm leading-relaxed text-gray-900">
           {entity?.content}
         </p>
 
         <div className="flex justify-between">
-          <div className="flex items-center space-x-8 ml-10 pt-1">
+          <div className="ml-10 flex items-center space-x-8 pt-1">
             <button
               onClick={() => {
                 if (!user) {
@@ -183,16 +186,18 @@ export default function Tweet({ onAuthRequired, handleSelectEntity }) {
                   upvoteEntity?.();
                 }
               }}
-              className={"flex items-center space-x-1.5 transition-all group cursor-pointer " + (
-                userUpvotedEntity
-                  ? "text-blue-600"
-                  : "text-gray-400 hover:text-blue-600"
-              )}
+              className={
+                'group flex cursor-pointer items-center space-x-1.5 transition-all ' +
+                (userUpvotedEntity
+                  ? 'text-blue-600'
+                  : 'text-gray-400 hover:text-blue-600')
+              }
             >
               <div
-                className={"p-1.5 rounded-full transition-all " + (
-                  userUpvotedEntity ? "bg-blue-100" : "group-hover:bg-blue-50"
-                )}
+                className={
+                  'rounded-full p-1.5 transition-all ' +
+                  (userUpvotedEntity ? 'bg-blue-100' : 'group-hover:bg-blue-50')
+                }
               >
                 <ThumbsUp size={14} />
               </div>
@@ -213,16 +218,18 @@ export default function Tweet({ onAuthRequired, handleSelectEntity }) {
                   downvoteEntity?.();
                 }
               }}
-              className={"flex items-center space-x-1.5 transition-all group cursor-pointer " + (
-                userDownvotedEntity
-                  ? "text-red-600"
-                  : "text-gray-400 hover:text-red-600"
-              )}
+              className={
+                'group flex cursor-pointer items-center space-x-1.5 transition-all ' +
+                (userDownvotedEntity
+                  ? 'text-red-600'
+                  : 'text-gray-400 hover:text-red-600')
+              }
             >
               <div
-                className={"p-1.5 rounded-full transition-all " + (
-                  userDownvotedEntity ? "bg-red-100" : "group-hover:bg-red-50"
-                )}
+                className={
+                  'rounded-full p-1.5 transition-all ' +
+                  (userDownvotedEntity ? 'bg-red-100' : 'group-hover:bg-red-50')
+                }
               >
                 <ThumbsDown size={14} />
               </div>
@@ -235,9 +242,9 @@ export default function Tweet({ onAuthRequired, handleSelectEntity }) {
               onClick={() =>
                 !user ? onAuthRequired() : handleSelectEntity(entity)
               }
-              className="flex items-center space-x-1.5 text-gray-400 hover:text-green-600 transition-all group cursor-pointer"
+              className="group flex cursor-pointer items-center space-x-1.5 text-gray-400 transition-all hover:text-green-600"
             >
-              <div className="p-1.5 rounded-full group-hover:bg-green-50 transition-all">
+              <div className="rounded-full p-1.5 transition-all group-hover:bg-green-50">
                 <MessageCircle size={14} />
               </div>
               <span className="text-xs font-medium">
@@ -252,20 +259,22 @@ export default function Tweet({ onAuthRequired, handleSelectEntity }) {
             trigger={
               <button
                 onClick={handleBookmarkClick}
-                className={"flex items-center space-x-1.5 transition-all group cursor-pointer " + (
-                  isEntitySaved
-                    ? "text-blue-600"
-                    : "text-gray-400 hover:text-blue-600"
-                )}
+                className={
+                  'group flex cursor-pointer items-center space-x-1.5 transition-all ' +
+                  (isEntitySaved
+                    ? 'text-blue-600'
+                    : 'text-gray-400 hover:text-blue-600')
+                }
               >
                 <div
-                  className={"p-1.5 rounded-full transition-all " + (
-                    isEntitySaved ? "bg-blue-100" : "group-hover:bg-blue-50"
-                  )}
+                  className={
+                    'rounded-full p-1.5 transition-all ' +
+                    (isEntitySaved ? 'bg-blue-100' : 'group-hover:bg-blue-50')
+                  }
                 >
                   <Bookmark
                     size={14}
-                    fill={isEntitySaved ? "currentColor" : "none"}
+                    fill={isEntitySaved ? 'currentColor' : 'none'}
                   />
                 </div>
               </button>
@@ -277,25 +286,25 @@ export default function Tweet({ onAuthRequired, handleSelectEntity }) {
       </div>
 
       {showDeleteConfirm && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 max-w-sm mx-4 shadow-2xl">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <div className="mx-4 max-w-sm rounded-xl bg-white p-6 shadow-2xl">
+            <h3 className="mb-2 text-lg font-semibold text-gray-900">
               Delete Entity
             </h3>
-            <p className="text-gray-600 text-sm mb-6">
+            <p className="mb-6 text-sm text-gray-600">
               Are you sure you want to delete this entity? This action cannot be
               undone.
             </p>
             <div className="flex space-x-3">
               <button
                 onClick={() => setShowDeleteConfirm(false)}
-                className="flex-1 px-4 py-2 text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50 transition-all text-sm font-medium"
+                className="flex-1 rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-all hover:bg-gray-50"
               >
                 Cancel
               </button>
               <button
                 onClick={handleDeleteConfirm}
-                className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all text-sm font-medium"
+                className="flex-1 rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-red-700"
               >
                 Delete
               </button>
@@ -313,5 +322,4 @@ export default function Tweet({ onAuthRequired, handleSelectEntity }) {
     </div>
   );
 }
-
 `;

@@ -1,10 +1,11 @@
-export const main = `import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import App from "./app";
+export const MainJsx = `import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.css';
+import App from './app.jsx';
 
-const root = createRoot(document.getElementById("root"));
-root.render(
+createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
-  </StrictMode>
-);`;
+  </StrictMode>,
+);
+`;

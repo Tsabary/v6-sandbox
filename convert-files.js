@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 
 // Configuration
 const SOURCE_DIR = 'container-src';
-const TARGET_DIR = 'src/templates/app-files';
+const TARGET_DIR = 'src/templates/app-files/src';
 const REACT_VITE_FILE = 'src/templates/react-vite.ts';
 
 // Utility functions
@@ -77,14 +77,18 @@ function generateFileExports() {
     // Get relative path from source directory
     const relativePath = path.relative(SOURCE_DIR, filePath);
 
-    // Create target TypeScript file path
-    const targetPath = path.join(
-      TARGET_DIR,
-      relativePath.replace(/\.[^/.]+$/, '.ts'),
-    );
+    // Handle special naming for CSS files to indicate their type
+    let targetFileName = relativePath.replace(/\.[^/.]+$/, '.ts');
+    let exportName = toValidIdentifier(relativePath);
 
-    // Generate export name
-    const exportName = toValidIdentifier(relativePath);
+    // Special case for index.css -> indexCss.ts
+    if (relativePath === 'index.css') {
+      targetFileName = 'indexCss.ts';
+      exportName = 'indexCss';
+    }
+
+    // Create target TypeScript file path
+    const targetPath = path.join(TARGET_DIR, targetFileName);
 
     // Create TypeScript export content
     const tsContent = `export const ${exportName} = \`${escapeTemplateString(content)}\`;

@@ -1,4 +1,0 @@
-export const ContextAuthContextJsx = `import { createContext } from "react";
-
-export const AuthContext = createContext(undefined);
-`;
