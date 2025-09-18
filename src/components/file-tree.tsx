@@ -6,6 +6,7 @@ import {
   FolderOpen as LFolderOpen,
   File as LFile,
 } from 'lucide-react';
+import type { FileSystemTree } from '@webcontainer/api';
 
 export type TreeNode = {
   name: string; // segment name (folder or file)
@@ -15,63 +16,50 @@ export type TreeNode = {
   children?: TreeNode[];
 };
 
-/** Build a nested tree from a files record keyed by paths like "App.jsx" or "src/App.tsx". */
-export function buildTree(filesRecord: Record<string, unknown>): TreeNode[] {
-  type Tmp = {
-    name: string;
-    displayPath: string;
-    exactKey: string | null; // only set on files
-    isFile: boolean;
-    children?: Record<string, Tmp>; // folders only
-  };
+/** Build a nested tree from a FileSystemTree structure. */
+export function buildTree(fileSystemTree: FileSystemTree): TreeNode[] {
+  const buildTreeFromNode = (
+    node: FileSystemTree,
+    basePath: string = '',
+  ): TreeNode[] => {
+    return Object.entries(node)
+      .map(([name, nodeData]) => {
+        const currentPath = basePath ? `${basePath}/${name}` : name;
 
-  const root: Record<string, Tmp> = {};
+        if ('file' in nodeData) {
+          // This is a file
+          return {
+            name,
+            displayPath: currentPath,
+            exactKey: currentPath,
+            isFile: true,
+            children: undefined,
+          };
+        } else if ('directory' in nodeData) {
+          // This is a directory
+          return {
+            name,
+            displayPath: currentPath,
+            exactKey: null,
+            isFile: false,
+            children: buildTreeFromNode(nodeData.directory, currentPath),
+          };
+        }
 
-  const add = (key: string) => {
-    const trimmed = key.replace(/^\/+/, '');
-    const parts = trimmed.split('/');
-    let cursor = root;
-
-    parts.forEach((part, idx) => {
-      const isLeaf = idx === parts.length - 1;
-      if (!cursor[part]) {
-        cursor[part] = {
-          name: part,
-          displayPath: parts.slice(0, idx + 1).join('/'),
-          exactKey: null,
-          isFile: isLeaf,
-          children: isLeaf ? undefined : {},
-        };
-      }
-      if (isLeaf) {
-        cursor[part].exactKey = key; // preserve the original key as provided
-        cursor[part].isFile = true;
-      } else {
-        cursor = cursor[part].children!;
-      }
-    });
-  };
-
-  Object.keys(filesRecord).forEach(add);
-
-  const toArray = (node: Record<string, Tmp>): TreeNode[] =>
-    Object.values(node)
+        // Fallback (shouldn't happen with proper FileSystemTree)
+        return null;
+      })
+      .filter((node): node is TreeNode => node !== null)
       .sort((a, b) =>
         a.isFile === b.isFile
           ? a.name.localeCompare(b.name)
           : a.isFile
             ? 1
             : -1,
-      )
-      .map((n) => ({
-        name: n.name,
-        displayPath: n.displayPath,
-        exactKey: n.exactKey,
-        isFile: n.isFile,
-        children: n.isFile ? undefined : toArray(n.children!),
-      }));
+      );
+  };
 
-  return toArray(root);
+  return buildTreeFromNode(fileSystemTree);
 }
 
 /** Single folder row with controlled open/close state (for reliable icon toggling) */

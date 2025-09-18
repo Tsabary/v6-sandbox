@@ -3,8 +3,6 @@ import type { WebContainer } from '@webcontainer/api';
 import React from 'react';
 import { VITE_REACT_TEMPLATE } from '../templates/react-vite';
 import { getLanguageFromFileName } from '../utils/get-language-from-file-name';
-// ↓ Replace your old import
-// import FileTabs from './file-tabs';
 import FileTabs from './file-tabs';
 import { FileTree, buildTree } from './file-tree';
 
@@ -84,17 +82,54 @@ export default function CodeEditor({
     [activeFile, openedFiles, previewFile],
   );
 
+  // Helper function to get file from nested structure
+  const getFileFromPath = React.useCallback((path: string) => {
+    const parts = path.split('/');
+    let current: any = VITE_REACT_TEMPLATE.files;
+
+    for (const part of parts) {
+      if (current[part]) {
+        current = current[part];
+        if ('directory' in current) {
+          current = current.directory;
+        } else if ('file' in current) {
+          return current;
+        }
+      } else {
+        return undefined;
+      }
+    }
+    return current;
+  }, []);
+
+  // Get all available file paths for validation
+  const getAllFilePaths = React.useCallback(() => {
+    const paths: string[] = [];
+    const traverse = (node: any, basePath: string = '') => {
+      Object.entries(node).forEach(([name, nodeData]: [string, any]) => {
+        const currentPath = basePath ? `${basePath}/${name}` : name;
+        if ('file' in nodeData) {
+          paths.push(currentPath);
+        } else if ('directory' in nodeData) {
+          traverse(nodeData.directory, currentPath);
+        }
+      });
+    };
+    traverse(VITE_REACT_TEMPLATE.files);
+    return paths;
+  }, []);
+
   // Guard unknown keys
   React.useEffect(() => {
-    const keys = Object.keys(VITE_REACT_TEMPLATE.files);
-    if (!keys.includes(activeFile)) {
+    const allPaths = getAllFilePaths();
+    if (!allPaths.includes(activeFile)) {
       const fallback =
         openedFiles[0] ?? previewFile ?? VITE_REACT_TEMPLATE.entry;
       setActiveFile(fallback);
     }
-  }, [activeFile, openedFiles, previewFile]);
+  }, [activeFile, openedFiles, previewFile, getAllFilePaths]);
 
-  const currentFile = VITE_REACT_TEMPLATE.files[activeFile] as
+  const currentFile = getFileFromPath(activeFile) as
     | { file: { contents: string } }
     | undefined;
   const language = getLanguageFromFileName(activeFile);
@@ -111,7 +146,7 @@ export default function CodeEditor({
     <div className={`flex h-full ${panelBg}`}>
       {/* Sidebar */}
       <aside
-        className={`w-64 shrink-0 border-r ${panelBorder} ${panelBg} overflow-auto`}
+        className={`w-48 shrink-0 border-r ${panelBorder} ${panelBg} overflow-auto`}
         aria-label="File explorer"
       >
         <div

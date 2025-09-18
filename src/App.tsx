@@ -17,13 +17,13 @@ export default function App() {
       await webContainerInstance.mount(VITE_REACT_TEMPLATE.files);
       setWebContainer(webContainerInstance);
 
-      // Automatically run npm install and npm run dev
-      const installProcess = await webContainerInstance.spawn('npm', [
-        'install',
-      ]);
-      await installProcess.exit;
+      // // Automatically run npm install and npm run dev
+      // const installProcess = await webContainerInstance.spawn('npm', [
+      //   'install',
+      // ]);
+      // await installProcess.exit;
 
-      await webContainerInstance.spawn('npm', ['run', 'dev']);
+      // await webContainerInstance.spawn('npm', ['run', 'dev']);
     };
 
     createWebContainer();

@@ -1,8 +1,12 @@
-import type { FileNode } from '@webcontainer/api';
-import { appFile } from './app-files/app';
+import type { FileSystemTree } from '@webcontainer/api';
+import { appFile } from './app-files/src/app';
+import { packageJson } from './app-files/package-json';
+import { viteConfig } from './app-files/vite-config';
+import { indexHtml } from './app-files/indexHtml';
+import { main } from './app-files/src/main';
 
 export type Template = {
-  files: Record<string, FileNode>;
+  files: FileSystemTree;
   entry: string;
   visibleFiles: string[];
 };
@@ -12,72 +16,33 @@ export const VITE_REACT_TEMPLATE: Template = {
     // ── project root
     'index.html': {
       file: {
-        contents: `<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <!-- Point to src/main.jsx -->
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
-</html>`,
+        contents: indexHtml,
       },
     },
 
     'package.json': {
       file: {
-        contents: `{
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-react": "3.1.0",
-    "vite": "4.1.4",
-    "esbuild-wasm": "0.17.12"
-  }
-}`,
+        contents: packageJson,
       },
     },
 
     'vite.config.js': {
       file: {
-        contents: `import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
-});`,
+        contents: viteConfig,
       },
     },
 
     // ── src/
-    'src/App.jsx': {
-      file: { contents: appFile }, // your existing App contents
-    },
-
-    'src/main.jsx': {
-      file: {
-        contents: `import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import App from "./App";
-
-const root = createRoot(document.getElementById("root"));
-root.render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);`,
+    src: {
+      directory: {
+        'App.jsx': {
+          file: { contents: appFile },
+        },
+        'main.jsx': {
+          file: {
+            contents: main,
+          },
+        },
       },
     },
   },
