@@ -134,18 +134,18 @@ function FolderRow({
           text,
           hover,
         ].join(' ')}
-        style={{ paddingLeft: `${8 + depth * 12}px` }}
+        style={{ paddingLeft: `${8 + depth * 20}px` }}
         aria-expanded={open}
       >
         {open ? (
-          <ChevronDown className="mr-1 h-4 w-4" />
+          <ChevronDown className="mr-1 h-4 w-4 flex-shrink-0" />
         ) : (
-          <ChevronRight className="mr-1 h-4 w-4" />
+          <ChevronRight className="mr-1 h-4 w-4 flex-shrink-0" />
         )}
         {open ? (
-          <LFolderOpen className="mr-2 h-4 w-4" />
+          <LFolderOpen className="mr-2 h-4 w-4 flex-shrink-0" />
         ) : (
-          <LFolder className="mr-2 h-4 w-4" />
+          <LFolder className="mr-2 h-4 w-4 flex-shrink-0" />
         )}
         <span className="truncate">{node.name}</span>
       </button>
@@ -215,10 +215,10 @@ function FileRow({
           hover,
           isActive ? `${activeBg} font-medium` : '',
         ].join(' ')}
-        style={{ paddingLeft: `${8 + depth * 12}px` }}
+        style={{ paddingLeft: `${8 + depth * 20}px` }}
         title={node.name}
       >
-        <LFile className="mr-2 h-4 w-4" />
+        <LFile className="mr-2 h-4 w-4 flex-shrink-0" />
         <span className="truncate">{node.name}</span>
       </button>
     </li>

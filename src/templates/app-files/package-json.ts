@@ -1,4 +1,5 @@
 export const packageJson = `{
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

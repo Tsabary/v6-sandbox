@@ -146,7 +146,7 @@ export default function CodeEditor({
     <div className={`flex h-full ${panelBg}`}>
       {/* Sidebar */}
       <aside
-        className={`w-48 shrink-0 border-r ${panelBorder} ${panelBg} overflow-auto`}
+        className={`w-56 shrink-0 border-r ${panelBorder} ${panelBg} overflow-auto`}
         aria-label="File explorer"
       >
         <div

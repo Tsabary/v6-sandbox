@@ -51,7 +51,7 @@ export default function FileTabs({
           }}
           title={preview ? `${file} (Preview)` : file}
         >
-          <span className="max-w-[16ch] truncate">{file}</span>
+          <span className="max-w-[16ch] truncate">{file.split('/').pop()}</span>
           <span
             role="button"
             aria-label={`Close ${file}`}

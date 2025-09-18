@@ -4,7 +4,10 @@
       "WebFetch(domain:webcontainers.io)",
       "WebSearch",
       "Bash(tree:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(node:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm lint:*)"
     ],
     "deny": [],
     "ask": []
