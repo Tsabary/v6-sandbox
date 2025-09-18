@@ -6,6 +6,7 @@ import { indexHtml } from './app-files/indexHtml';
 import { main } from './app-files/src/main';
 import { jsConfigJson } from './app-files/jsConfigJson';
 import { componentsJson } from './app-files/componentJson';
+import { tweet } from './app-files/src/components/tweet';
 
 export type Template = {
   files: FileSystemTree;
@@ -43,7 +44,7 @@ export const VITE_REACT_TEMPLATE: Template = {
     // ── src/
     src: {
       directory: {
-        'App.jsx': {
+        'app.jsx': {
           file: { contents: appFile },
         },
         'main.jsx': {
@@ -51,16 +52,25 @@ export const VITE_REACT_TEMPLATE: Template = {
             contents: main,
           },
         },
+        components: {
+          directory: {
+            'tweet.jsx': {
+              file: {
+                contents: tweet,
+              },
+            },
+          },
+        },
       },
     },
   },
 
   // Optional: whatever your app uses as the "entry" reference
-  entry: 'src/App.jsx',
+  entry: 'src/app.jsx',
 
   // Controls what your tabs/file-tree show
   visibleFiles: [
-    'src/App.jsx',
+    'src/app.jsx',
     'src/main.jsx',
     'index.html',
     'vite.config.js',

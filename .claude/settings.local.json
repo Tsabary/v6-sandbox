@@ -1,6 +1,11 @@
 {
   "permissions": {
-    "allow": ["WebFetch(domain:webcontainers.io)", "WebSearch"],
+    "allow": [
+      "WebFetch(domain:webcontainers.io)",
+      "WebSearch",
+      "Bash(tree:*)",
+      "Bash(find:*)"
+    ],
     "deny": [],
     "ask": []
   }
