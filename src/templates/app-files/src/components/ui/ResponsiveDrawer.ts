@@ -1,5 +1,5 @@
-export const ComponentsUiResponsiveDrawerJsx = `import * as React from 'react';
-import { useMediaQuery } from '../../hooks/use-media-query';
+export const ComponentsUiResponsiveDrawerJsx = `import * as React from "react";
+import { useMediaQuery } from "../../hooks/use-media-query";
 import {
   Dialog,
   DialogContent,
@@ -7,15 +7,15 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from './dialog';
+} from "./dialog";
 import {
   Drawer,
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from './drawer';
-import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+} from "./drawer";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 export function ResponsiveDrawer({
   children,
@@ -24,7 +24,7 @@ export function ResponsiveDrawer({
   onOpenChange,
   trigger,
 }) {
-  const isDesktop = useMediaQuery('(min-width: 640px)');
+  const isDesktop = useMediaQuery("(min-width: 640px)");
 
   if (isDesktop) {
     return (

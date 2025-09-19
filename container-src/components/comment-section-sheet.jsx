@@ -1,5 +1,7 @@
+import { useState, useEffect } from 'react';
 import { ThreadedCommentSection } from '@replyke/comments-threaded-react-js';
 import { SocialCommentSection } from '@replyke/comments-social-react-js';
+import { useSearchParams } from 'react-router-dom';
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import {
   Sheet,
@@ -15,12 +17,19 @@ import {
   TabsTrigger,
 } from '../components/ui/tabs';
 
-function CommentSectionSheet({
-  entity,
-  open,
-  onOpenChange,
-  highlightedCommentId,
-}) {
+function CommentSectionSheet({ entity, open, onOpenChange }) {
+  const [searchParams] = useSearchParams();
+
+  const [highlightedCommentId, setHighlightedCommentId] = useState(null);
+
+  useEffect(() => {
+    const commentId = searchParams.get('commentId');
+    if (commentId) {
+      onOpenChange(true);
+      setHighlightedCommentId(commentId);
+    }
+  }, [searchParams]);
+
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className="flex flex-col bg-white">

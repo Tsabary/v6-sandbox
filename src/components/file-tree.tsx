@@ -22,41 +22,35 @@ export function buildTree(fileSystemTree: FileSystemTree): TreeNode[] {
     node: FileSystemTree,
     basePath: string = '',
   ): TreeNode[] => {
-    return Object.entries(node)
-      .map(([name, nodeData]) => {
-        const currentPath = basePath ? `${basePath}/${name}` : name;
+    const nodes: TreeNode[] = [];
 
-        if ('file' in nodeData) {
-          // This is a file
-          return {
-            name,
-            displayPath: currentPath,
-            exactKey: currentPath,
-            isFile: true,
-            children: undefined,
-          };
-        } else if ('directory' in nodeData) {
-          // This is a directory
-          return {
-            name,
-            displayPath: currentPath,
-            exactKey: null,
-            isFile: false,
-            children: buildTreeFromNode(nodeData.directory, currentPath),
-          };
-        }
+    for (const [name, nodeData] of Object.entries(node)) {
+      const currentPath = basePath ? `${basePath}/${name}` : name;
 
-        // Fallback (shouldn't happen with proper FileSystemTree)
-        return null;
-      })
-      .filter((node): node is TreeNode => node !== null)
-      .sort((a, b) =>
-        a.isFile === b.isFile
-          ? a.name.localeCompare(b.name)
-          : a.isFile
-            ? 1
-            : -1,
-      );
+      if ('file' in nodeData) {
+        // This is a file
+        nodes.push({
+          name,
+          displayPath: currentPath,
+          exactKey: currentPath,
+          isFile: true,
+          children: undefined,
+        });
+      } else if ('directory' in nodeData) {
+        // This is a directory
+        nodes.push({
+          name,
+          displayPath: currentPath,
+          exactKey: null,
+          isFile: false,
+          children: buildTreeFromNode(nodeData.directory, currentPath),
+        });
+      }
+    }
+
+    return nodes.sort((a, b) =>
+      a.isFile === b.isFile ? a.name.localeCompare(b.name) : a.isFile ? 1 : -1,
+    );
   };
 
   return buildTreeFromNode(fileSystemTree);

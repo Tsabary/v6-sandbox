@@ -1,28 +1,27 @@
-export const ComponentsNotificationControlNotificationTriggerJsx = `import { Bell } from 'lucide-react';
+export const ComponentsNotificationControlNotificationTriggerJsx = `import { Bell } from "lucide-react";
 
 const NotificationTrigger = ({ unreadCount }) => {
   return (
     <button
-      className="group relative flex cursor-pointer items-center rounded-lg border border-blue-200 p-2 text-gray-600 transition-all hover:bg-blue-50 hover:text-blue-600"
-      aria-label={
-        'Notifications' +
-        (unreadCount > 0 ? ' (' + unreadCount + ' unread)' : '')
-      }
+      className="flex items-center text-gray-600 hover:text-blue-600 group cursor-pointer relative border border-blue-200 p-2 rounded-lg hover:bg-blue-50 transition-all"
+      aria-label={"Notifications" + (
+        unreadCount > 0 ? " (" + unreadCount + " unread)" : ""
+      )}
     >
       <div className="group-hover:text-blue-600">
         <Bell size={14} />
       </div>
 
       {unreadCount > 0 && (
-        <div className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full border-2 border-white bg-red-500 text-[10px] font-bold text-white">
-          {unreadCount > 99 ? '99+' : unreadCount}
+        <div className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full min-w-[16px] h-4 flex items-center justify-center border-2 border-white">
+          {unreadCount > 99 ? "99+" : unreadCount}
         </div>
       )}
     </button>
   );
 };
 
-NotificationTrigger.displayName = 'NotificationTrigger';
+NotificationTrigger.displayName = "NotificationTrigger";
 
 export default NotificationTrigger;
 `;

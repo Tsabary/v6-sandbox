@@ -40,19 +40,19 @@ export default function App() {
   return (
     <div className="h-dvh">
       <PanelGroup direction="horizontal">
-        <Panel defaultSize={35} minSize={20}>
+        <Panel defaultSize={40} minSize={20}>
           <PanelGroup direction="vertical">
-            <Panel defaultSize={70} minSize={30}>
+            <Panel defaultSize={75} minSize={30}>
               <CodeEditor webContainer={webContainer} />
             </Panel>
             <PanelResizeHandle className="resize-handle" />
-            <Panel defaultSize={30} minSize={15}>
+            <Panel defaultSize={25} minSize={15}>
               <Terminal webContainer={webContainer} />
             </Panel>
           </PanelGroup>
         </Panel>
         <PanelResizeHandle className="resize-handle" />
-        <Panel defaultSize={65} minSize={30}>
+        <Panel defaultSize={60} minSize={30}>
           <Preview webContainer={webContainer} />
         </Panel>
       </PanelGroup>

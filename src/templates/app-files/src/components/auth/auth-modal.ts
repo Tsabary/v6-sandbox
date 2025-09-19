@@ -1,36 +1,36 @@
-export const ComponentsAuthAuthModalJsx = `import { useState } from 'react';
-import { X, Shuffle } from 'lucide-react';
-import { useAuth } from '../../context/use-auth';
+export const ComponentsAuthAuthModalJsx = `import { useState } from "react";
+import { X, Shuffle } from "lucide-react";
+import { useAuth } from "../../context/use-auth";
 
 export default function UsernameModal({ isOpen, onClose }) {
-  const [username, setUsername] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [error, setError] = useState("");
   const { setUsername: saveUsername, generateRandomUsername } = useAuth();
 
   if (!isOpen) return null;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (!username.trim()) {
-      setError('Please enter a username');
+      setError("Please enter a username");
       return;
     }
 
     if (username.length < 3) {
-      setError('Username must be at least 3 characters');
+      setError("Username must be at least 3 characters");
       return;
     }
 
-    if (username.length > 20) {
-      setError('Username must be less than 20 characters');
+    if (username.length > 30) {
+      setError("Username must be less than 20 characters");
       return;
     }
 
     if (!/^[a-zA-Z0-9_-]+$/.test(username)) {
       setError(
-        'Username can only contain letters, numbers, hyphens, and underscores',
+        "Username can only contain letters, numbers, hyphens, and underscores"
       );
       return;
     }
@@ -42,26 +42,26 @@ export default function UsernameModal({ isOpen, onClose }) {
   const handleGenerateRandom = () => {
     const randomUsername = generateRandomUsername();
     setUsername(randomUsername);
-    setError('');
+    setError("");
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
-      <div className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-xl bg-white shadow-2xl">
-        <div className="flex items-center justify-between border-b border-gray-100 p-6">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+        <div className="flex justify-between items-center p-6 border-b border-gray-100">
           <h1 className="text-lg font-semibold text-gray-900">
             Choose a Username
           </h1>
           <button
             onClick={onClose}
-            className="rounded-lg p-1 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
+            className="text-gray-400 hover:text-gray-600 transition-colors p-1 rounded-lg hover:bg-gray-100"
           >
             <X size={20} />
           </button>
         </div>
 
         <div className="p-6">
-          <div className="mb-4 rounded-lg border border-blue-200 bg-blue-50 p-3">
+          <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
             <p className="text-sm text-blue-800">
               <strong>Demo Mode:</strong> This is a demo project, so we're
               keeping it simple! In a real application, you'd typically have
@@ -74,7 +74,7 @@ export default function UsernameModal({ isOpen, onClose }) {
             <div>
               <label
                 htmlFor="username"
-                className="mb-2 block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-700 mb-2"
               >
                 Username
               </label>
@@ -85,15 +85,15 @@ export default function UsernameModal({ isOpen, onClose }) {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Enter your username"
-                  className="flex-1 rounded-lg border border-gray-300 px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
                 <button
                   type="button"
                   onClick={handleGenerateRandom}
-                  className="rounded-lg border border-gray-300 px-4 py-2 text-sm whitespace-nowrap transition-colors hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
+                  className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors whitespace-nowrap text-sm"
                   title="Generate a random username suggestion"
                 >
-                  <Shuffle size={16} className="mr-1 inline" />
+                  <Shuffle size={16} className="inline mr-1" />
                   Shuffle
                 </button>
               </div>
@@ -103,17 +103,17 @@ export default function UsernameModal({ isOpen, onClose }) {
             <button
               type="submit"
               disabled={!username.trim() || username.length < 3}
-              className="w-full rounded-lg bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-300"
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
             >
               Continue with this username
             </button>
           </form>
 
-          <div className="mt-4 rounded-lg border border-gray-200 bg-gray-50 p-3">
-            <p className="mb-2 text-xs text-gray-600">
+          <div className="mt-4 p-3 bg-gray-50 border border-gray-200 rounded-lg">
+            <p className="text-xs text-gray-600 mb-2">
               <strong>Good to know:</strong>
             </p>
-            <ul className="space-y-1 text-xs text-gray-600">
+            <ul className="text-xs text-gray-600 space-y-1">
               <li>
                 • You can reuse a username you've used before if you want to
                 test interactivity between different users

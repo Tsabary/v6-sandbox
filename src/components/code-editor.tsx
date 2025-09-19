@@ -12,11 +12,11 @@ export default function CodeEditor({
   webContainer: WebContainer | null;
 }) {
   const [openedFiles, setOpenedFiles] = React.useState<string[]>([
-    VITE_REACT_TEMPLATE.entry,
+    'src/pages/home-page.jsx',
   ]);
   const [previewFile, setPreviewFile] = React.useState<string | null>(null);
   const [activeFile, setActiveFile] = React.useState<string>(
-    VITE_REACT_TEMPLATE.entry,
+    'src/pages/home-page.jsx',
   );
 
   // theme (unchanged)...

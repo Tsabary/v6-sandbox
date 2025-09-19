@@ -2,5 +2,4 @@ export const ComponentsNotificationControlIndexJs = `export { default } from './
 export { default as NotificationList } from './notification-list';
 export { default as NotificationItem } from './notification-item';
 export { default as NotificationIcon } from './notification-icon';
-export * from './utils';
-`;
+export * from './utils';`;

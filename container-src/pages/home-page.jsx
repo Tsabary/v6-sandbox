@@ -17,13 +17,14 @@ export default function TweetFeed() {
     hasMore,
     loadMore,
   } = useEntityList({
-    listId: 'home-tweets',
-    sourceId: 'tweets',
-    limit: 2,
+    listId: 'home-tweets', // Filers at the store level
+    sourceId: 'tweets', // Filters at the DB level
+    limit: 10, // Batch size
   });
   const { user } = useUser();
 
   const [selectedEntity, setSelectedEntity] = useState(null);
+  const [commentSheetOpen, setCommentSheetOpen] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [content, setContent] = useState('');
   const [sortBy, setSortBy] = useState('new');
@@ -44,12 +45,17 @@ export default function TweetFeed() {
 
   function handleSelectEntity(ent) {
     setSelectedEntity(ent);
+    setCommentSheetOpen(true);
   }
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Sheet>
-        <CommentSectionSheet entity={selectedEntity} />
+        <CommentSectionSheet
+          entity={selectedEntity}
+          open={commentSheetOpen}
+          onOpenChange={setCommentSheetOpen}
+        />
         <div className="mx-auto max-w-2xl border-x border-gray-200 bg-white shadow-sm">
           {user && (
             <div className="bg-white p-4">

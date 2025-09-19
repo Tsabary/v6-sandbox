@@ -23,7 +23,7 @@ export default function UsernameModal({ isOpen, onClose }) {
       return;
     }
 
-    if (username.length > 20) {
+    if (username.length > 30) {
       setError('Username must be less than 20 characters');
       return;
     }

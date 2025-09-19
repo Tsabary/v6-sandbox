@@ -1,13 +1,13 @@
-export const ContextAuthProviderJsx = `import { useEffect, useState } from 'react';
+export const ContextAuthProviderJsx = `import { useEffect, useState } from "react";
 import {
   uniqueNamesGenerator,
   adjectives,
   colors,
   animals,
-} from 'unique-names-generator';
-import { AuthContext } from './auth-context';
+} from "unique-names-generator";
+import { AuthContext } from "./auth-context";
 
-const USERNAME_KEY = 'demo_username';
+const USERNAME_KEY = "demo_username";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -35,9 +35,9 @@ export const AuthProvider = ({ children }) => {
   const generateRandomUsername = () => {
     const randomUsername = uniqueNamesGenerator({
       dictionaries: [adjectives, colors, animals],
-      separator: '-',
+      separator: "-",
       length: 3,
-      style: 'lowerCase',
+      style: "lowerCase",
     });
     return randomUsername;
   };

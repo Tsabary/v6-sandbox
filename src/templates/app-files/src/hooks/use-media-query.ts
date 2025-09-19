@@ -1,11 +1,11 @@
-export const HooksUseMediaQueryJs = `import { useState, useEffect } from 'react';
+export const HooksUseMediaQueryJs = `import { useState, useEffect } from "react";
 
 export function useMediaQuery(query) {
   const [matches, setMatches] = useState(false);
 
   useEffect(() => {
     // Check if window is available (client-side)
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
       return;
     }
 
@@ -21,7 +21,7 @@ export function useMediaQuery(query) {
 
     // Add listener
     if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener('change', handler);
+      mediaQuery.addEventListener("change", handler);
     } else {
       // Fallback for older browsers
       mediaQuery.addListener(handler);
@@ -30,7 +30,7 @@ export function useMediaQuery(query) {
     // Cleanup
     return () => {
       if (mediaQuery.removeEventListener) {
-        mediaQuery.removeEventListener('change', handler);
+        mediaQuery.removeEventListener("change", handler);
       } else {
         // Fallback for older browsers
         mediaQuery.removeListener(handler);

@@ -1,15 +1,15 @@
 export const ComponentsLoadingPlaceholderJsx = `function LoadingPlaceholder() {
   return (
-    <div className="flex items-center justify-center border-t border-gray-100 bg-white p-6">
+    <div className="bg-white p-6 flex items-center justify-center border-t border-gray-100">
       <div className="flex items-center space-x-2">
-        <div className="h-2 w-2 animate-bounce rounded-full bg-blue-600"></div>
+        <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"></div>
         <div
-          className="h-2 w-2 animate-bounce rounded-full bg-blue-600"
-          style={{ animationDelay: '0.1s' }}
+          className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
+          style={{ animationDelay: "0.1s" }}
         ></div>
         <div
-          className="h-2 w-2 animate-bounce rounded-full bg-blue-600"
-          style={{ animationDelay: '0.2s' }}
+          className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
+          style={{ animationDelay: "0.2s" }}
         ></div>
       </div>
     </div>

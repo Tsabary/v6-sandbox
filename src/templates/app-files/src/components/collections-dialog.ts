@@ -1,5 +1,5 @@
-export const ComponentsCollectionsDialogJsx = `import React, { useState } from 'react';
-import { useEntity, useLists } from '@replyke/react-js';
+export const ComponentsCollectionsDialogJsx = `import React, { useState } from "react";
+import { useEntity, useLists } from "@replyke/react-js";
 import {
   Plus,
   Check,
@@ -9,15 +9,15 @@ import {
   Edit,
   Trash2,
   LoaderCircle,
-} from 'lucide-react';
-import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
+} from "lucide-react";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '../components/ui/dropdown-menu';
+} from "../components/ui/dropdown-menu";
 
 function CollectionsDialog({ setIsEntitySaved }) {
   const {
@@ -36,9 +36,9 @@ function CollectionsDialog({ setIsEntitySaved }) {
   const { entity } = useEntity();
 
   const [isCreatingList, setIsCreatingList] = useState(false);
-  const [newListName, setNewListName] = useState('');
+  const [newListName, setNewListName] = useState("");
   const [editingList, setEditingList] = useState(null);
-  const [editName, setEditName] = useState('');
+  const [editName, setEditName] = useState("");
   const [deleteConfirm, setDeleteConfirm] = useState(null);
 
   const [isSaving, setIsSaving] = useState(false);
@@ -49,9 +49,9 @@ function CollectionsDialog({ setIsEntitySaved }) {
     setIsCreatingList(true);
     try {
       await createList({ listName: newListName.trim() });
-      setNewListName('');
+      setNewListName("");
     } catch (error) {
-      console.error('Failed to create list:', error);
+      console.error("Failed to create list:", error);
     } finally {
       setIsCreatingList(false);
     }
@@ -63,7 +63,7 @@ function CollectionsDialog({ setIsEntitySaved }) {
       await addToList({ entityId });
       setIsEntitySaved(true);
     } catch (error) {
-      console.error('Failed to add to list:', error);
+      console.error("Failed to add to list:", error);
     } finally {
       setIsSaving(false);
     }
@@ -73,7 +73,7 @@ function CollectionsDialog({ setIsEntitySaved }) {
     try {
       await removeFromList({ entityId });
     } catch (error) {
-      console.error('Failed to remove from list:', error);
+      console.error("Failed to remove from list:", error);
     }
   };
 
@@ -88,15 +88,15 @@ function CollectionsDialog({ setIsEntitySaved }) {
     try {
       await updateList({ listId, update: { name: editName.trim() } });
       setEditingList(null);
-      setEditName('');
+      setEditName("");
     } catch (error) {
-      console.error('Failed to update list:', error);
+      console.error("Failed to update list:", error);
     }
   };
 
   const handleCancelEdit = () => {
     setEditingList(null);
-    setEditName('');
+    setEditName("");
   };
 
   const handleDeleteList = async (list) => {
@@ -104,7 +104,7 @@ function CollectionsDialog({ setIsEntitySaved }) {
       await deleteList({ list });
       setDeleteConfirm(null);
     } catch (error) {
-      console.error('Failed to delete list:', error);
+      console.error("Failed to delete list:", error);
     }
   };
 
@@ -112,7 +112,7 @@ function CollectionsDialog({ setIsEntitySaved }) {
     <div className="space-y-4">
       {/* Navigation Header - only show when NOT at root */}
       {currentList && currentList.parentId && (
-        <div className="flex items-center border-b pb-3">
+        <div className="flex items-center pb-3 border-b">
           <Button
             size="sm"
             variant="ghost"
@@ -127,7 +127,7 @@ function CollectionsDialog({ setIsEntitySaved }) {
 
       {/* Current Collection Save - show when in a collection */}
       {currentList && entity?.id && (
-        <div className="border-b pb-3">
+        <div className="pb-3 border-b">
           <Button
             onClick={() => {
               const isInCurrentList = isEntityInList(entity.id);
@@ -137,7 +137,7 @@ function CollectionsDialog({ setIsEntitySaved }) {
                 handleAddToList(entity.id);
               }
             }}
-            variant={isEntityInList(entity.id) ? 'secondary' : 'outline'}
+            variant={isEntityInList(entity.id) ? "secondary" : "outline"}
             disabled={isSaving}
             className="w-full"
           >
@@ -168,24 +168,24 @@ function CollectionsDialog({ setIsEntitySaved }) {
         )}
 
         {subLists && subLists.length > 0 ? (
-          <div className="max-h-60 space-y-2 overflow-y-auto">
+          <div className="space-y-2 max-h-60 overflow-y-auto">
             {subLists.map((list) => {
               const isEditing = editingList === list.id;
 
               return (
                 <div
                   key={list.id}
-                  className="flex items-center justify-between rounded-lg border p-3 transition-colors hover:bg-gray-50"
+                  className="flex items-center justify-between p-3 rounded-lg border hover:bg-gray-50 transition-colors"
                 >
-                  <div className="flex flex-1 items-center space-x-3">
+                  <div className="flex items-center space-x-3 flex-1">
                     {isEditing ? (
-                      <div className="flex flex-1 items-center space-x-2">
+                      <div className="flex items-center space-x-2 flex-1">
                         <Input
                           value={editName}
                           onChange={(e) => setEditName(e.target.value)}
                           onKeyDown={(e) => {
-                            if (e.key === 'Enter') handleSaveEdit(list.id);
-                            if (e.key === 'Escape') handleCancelEdit();
+                            if (e.key === "Enter") handleSaveEdit(list.id);
+                            if (e.key === "Escape") handleCancelEdit();
                           }}
                           className="flex-1"
                         />
@@ -206,7 +206,7 @@ function CollectionsDialog({ setIsEntitySaved }) {
                       </div>
                     ) : (
                       <div
-                        className="flex flex-1 cursor-pointer items-center space-x-3"
+                        className="flex items-center space-x-3 flex-1 cursor-pointer"
                         onClick={() => openList(list)}
                       >
                         <span className="font-medium text-gray-900">
@@ -253,7 +253,7 @@ function CollectionsDialog({ setIsEntitySaved }) {
             })}
           </div>
         ) : (
-          <div className="py-8 text-center text-gray-500">
+          <div className="text-center py-8 text-gray-500">
             <div className="mb-2">No collections yet</div>
             <div className="text-sm">Create your first collection below</div>
           </div>
@@ -261,12 +261,12 @@ function CollectionsDialog({ setIsEntitySaved }) {
       </div>
 
       {/* Create New Collection */}
-      <div className="flex items-center gap-2 border-t pt-4">
+      <div className="pt-4 border-t flex items-center gap-2">
         <Input
           placeholder="New collection name"
           value={newListName}
           onChange={(e) => setNewListName(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleCreateList()}
+          onKeyDown={(e) => e.key === "Enter" && handleCreateList()}
           className="flex-1"
         />
         <Button
@@ -274,18 +274,18 @@ function CollectionsDialog({ setIsEntitySaved }) {
           disabled={!newListName.trim() || isCreatingList}
           size="sm"
         >
-          {isCreatingList ? 'Creating...' : <Plus size={16} />}
+          {isCreatingList ? "Creating..." : <Plus size={16} />}
         </Button>
       </div>
 
       {/* Delete Confirmation Dialog */}
       {deleteConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-          <div className="mx-4 max-w-sm rounded-xl bg-white p-6 shadow-2xl">
-            <h3 className="mb-2 text-lg font-semibold text-gray-900">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl p-6 max-w-sm mx-4 shadow-2xl">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
               Delete Collection
             </h3>
-            <p className="mb-6 text-sm text-gray-600">
+            <p className="text-gray-600 text-sm mb-6">
               Are you sure you want to delete "{deleteConfirm.name}"? This
               action cannot be undone.
             </p>

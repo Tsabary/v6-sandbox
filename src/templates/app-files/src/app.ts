@@ -1,12 +1,12 @@
-export const AppJsx = `import { ReplykeProvider, useSignTestingJwt } from '@replyke/react-js';
-import { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/auth-provider';
-import HomePage from './pages/home-page';
-import ProfilePage from './pages/profile-page';
-import EntityPage from './pages/entity-page';
-import { useAuth } from './context/use-auth';
-import DEMO_CREDENTIALS from './config/credentials';
+export const AppJsx = `import { ReplykeProvider, useSignTestingJwt } from "@replyke/react-js";
+import { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/auth-provider";
+import HomePage from "./pages/home-page";
+import ProfilePage from "./pages/profile-page";
+import EntityPage from "./pages/entity-page";
+import { useAuth } from "./context/use-auth";
+import DEMO_CREDENTIALS from "./config/credentials";
 
 function AppInner() {
   const { user } = useAuth();

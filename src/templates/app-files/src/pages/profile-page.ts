@@ -1,21 +1,21 @@
-export const PagesProfilePageJsx = `import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+export const PagesProfilePageJsx = `import { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import {
   EntityProvider,
   useEntityList,
   useFetchUser,
   useFollowManager,
   useUser,
-} from '@replyke/react-js';
-import { ArrowLeft, Edit2, Check, X, Calendar, UserIcon } from 'lucide-react';
-import Tweet from '../components/tweet';
-import UsernameModal from '../components/auth/auth-modal';
-import LoadingPlaceholder from '../components/loading-placeholder';
-import Filters from '../components/filters';
-import { Sheet } from '../components/ui/sheet';
-import CommentSectionSheet from '../components/comment-section-sheet';
-import getUserAvatar from '../utils/getUserAvatar';
-import { generateProfileBanner } from '../utils/getProfileBanner';
+} from "@replyke/react-js";
+import { ArrowLeft, Edit2, Check, X, Calendar, UserIcon } from "lucide-react";
+import Tweet from "../components/tweet";
+import UsernameModal from "../components/auth/auth-modal";
+import LoadingPlaceholder from "../components/loading-placeholder";
+import Filters from "../components/filters";
+import { Sheet } from "../components/ui/sheet";
+import CommentSectionSheet from "../components/comment-section-sheet";
+import getUserAvatar from "../utils/getUserAvatar";
+import { generateProfileBanner } from "../utils/getProfileBanner";
 
 export default function ProfilePage() {
   const { userId } = useParams();
@@ -32,22 +32,22 @@ export default function ProfilePage() {
     hasMore,
     loadMore,
   } = useEntityList({
-    listId: 'profile-tweets-' + userId,
-    sourceId: 'tweets',
+    listId: "profile-tweets-" + userId,
+    sourceId: "tweets",
     limit: 10,
   });
 
   const [selectedEntity, setSelectedEntity] = useState(null);
   const [commentSheetOpen, setCommentSheetOpen] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
-  const [content, setContent] = useState('');
-  const [sortBy, setSortBy] = useState('new');
+  const [content, setContent] = useState("");
+  const [sortBy, setSortBy] = useState("new");
   const [timeFrame, setTimeFrame] = useState(null);
   const [profileUser, setProfileUser] = useState(null);
   const [isEditingBio, setIsEditingBio] = useState(false);
   const [isEditingBirthdate, setIsEditingBirthdate] = useState(false);
-  const [editBio, setEditBio] = useState('');
-  const [editBirthdate, setEditBirthdate] = useState('');
+  const [editBio, setEditBio] = useState("");
+  const [editBirthdate, setEditBirthdate] = useState("");
 
   const avatar = profileUser ? getUserAvatar(profileUser.id) : null;
   const bannerStyle = userId ? generateProfileBanner(userId) : null;
@@ -80,12 +80,12 @@ export default function ProfilePage() {
   // Initialize edit values when profileUser changes
   useEffect(() => {
     if (profileUser) {
-      setEditBio(profileUser.bio || '');
+      setEditBio(profileUser.bio || "");
       // Convert Date object to YYYY-MM-DD string format for date input
       setEditBirthdate(
         profileUser.birthdate
-          ? new Date(profileUser.birthdate).toISOString().split('T')[0]
-          : '',
+          ? new Date(profileUser.birthdate).toISOString().split("T")[0]
+          : ""
       );
     }
   }, [profileUser]);
@@ -104,12 +104,12 @@ export default function ProfilePage() {
       }
       setIsEditingBio(false);
     } catch (error) {
-      console.error('Failed to update bio:', error);
+      console.error("Failed to update bio:", error);
     }
   };
 
   const handleBioCancel = () => {
-    setEditBio(profileUser?.bio || '');
+    setEditBio(profileUser?.bio || "");
     setIsEditingBio(false);
   };
 
@@ -127,7 +127,7 @@ export default function ProfilePage() {
       }
       setIsEditingBirthdate(false);
     } catch (error) {
-      console.error('Failed to update birthdate:', error);
+      console.error("Failed to update birthdate:", error);
     }
   };
 
@@ -135,8 +135,8 @@ export default function ProfilePage() {
     // Convert Date object back to string format for input
     setEditBirthdate(
       profileUser?.birthdate
-        ? new Date(profileUser.birthdate).toISOString().split('T')[0]
-        : '',
+        ? new Date(profileUser.birthdate).toISOString().split("T")[0]
+        : ""
     );
     setIsEditingBirthdate(false);
   };
@@ -151,19 +151,19 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="bg-gray-50 min-h-screen">
       <Sheet>
         <CommentSectionSheet
           entity={selectedEntity}
           open={commentSheetOpen}
           onOpenChange={setCommentSheetOpen}
         />
-        <div className="mx-auto max-w-2xl border-x border-gray-200 bg-white shadow-sm">
+        <div className="max-w-2xl mx-auto bg-white shadow-sm border-x border-gray-200">
           {/* Header with back button */}
-          <div className="sticky top-0 z-10 flex items-center space-x-4 border-b border-gray-200 bg-white/95 px-4 py-3 backdrop-blur-sm">
+          <div className="sticky top-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 px-4 py-3 flex items-center space-x-4 z-10">
             <Link
               to="/"
-              className="rounded-full p-2 transition-colors hover:bg-gray-100"
+              className="p-2 rounded-full hover:bg-gray-100 transition-colors"
             >
               <ArrowLeft size={20} className="text-gray-700" />
             </Link>
@@ -179,7 +179,7 @@ export default function ProfilePage() {
 
           {/* Profile user info - always show if we have profile data */}
           {profileUser && avatar && (
-            <div className="relative border-b border-gray-200 bg-white">
+            <div className="bg-white border-b border-gray-200 relative">
               {/* Profile banner/header area */}
               <div className="relative h-40">
                 <div
@@ -187,25 +187,25 @@ export default function ProfilePage() {
                   style={{
                     backgroundImage:
                       bannerStyle?.backgroundImage ||
-                      'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
+                      "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
                   }}
                 ></div>
                 {/* Profile avatar positioned over the banner */}
                 <div className="absolute -bottom-10 left-6">
                   <img
                     src={avatar}
-                    className="h-20 w-20 rounded-full border-4 border-white bg-white shadow-lg"
+                    className="w-20 h-20 rounded-full border-4 border-white shadow-lg bg-white"
                   />
                 </div>
               </div>
 
               {/* Profile details */}
-              <div className="px-6 pt-12 pb-6">
+              <div className="pt-12 pb-6 px-6">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <h1 className="mb-1 text-2xl font-bold text-gray-900">
+                    <h1 className="text-2xl font-bold text-gray-900 mb-1">
                       @{profileUser.username}
                     </h1>
 
@@ -217,28 +217,28 @@ export default function ProfilePage() {
                             value={editBio}
                             onChange={(e) => setEditBio(e.target.value)}
                             placeholder="Add a bio..."
-                            className="flex-1 resize-none rounded-lg border border-gray-300 p-2 text-sm focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                            className="flex-1 p-2 border border-gray-300 rounded-lg text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             rows={2}
                             maxLength={160}
                           />
                           <button
                             onClick={handleBioSave}
-                            className="rounded-full p-1.5 text-green-600 transition-colors hover:bg-green-50"
+                            className="p-1.5 text-green-600 hover:bg-green-50 rounded-full transition-colors"
                           >
                             <Check size={16} />
                           </button>
                           <button
                             onClick={handleBioCancel}
-                            className="cursor-pointer rounded-full p-1.5 text-gray-500 transition-colors hover:bg-gray-50"
+                            className="p-1.5 text-gray-500 hover:bg-gray-50 rounded-full transition-colors cursor-pointer"
                           >
                             <X size={16} />
                           </button>
                         </div>
                       ) : (
-                        <div className="group flex items-start justify-between">
+                        <div className="flex items-start justify-between group">
                           <div className="flex-1">
                             {profileUser.bio ? (
-                              <p className="text-sm leading-relaxed text-gray-700">
+                              <p className="text-gray-700 text-sm leading-relaxed">
                                 {profileUser.bio}
                               </p>
                             ) : (
@@ -246,8 +246,8 @@ export default function ProfilePage() {
                                 <UserIcon size={14} />
                                 <span className="text-sm italic">
                                   {isCurrentUser
-                                    ? 'Add a bio to tell people about yourself'
-                                    : 'No bio yet'}
+                                    ? "Add a bio to tell people about yourself"
+                                    : "No bio yet"}
                                 </span>
                               </div>
                             )}
@@ -255,7 +255,7 @@ export default function ProfilePage() {
                           {isCurrentUser && (
                             <button
                               onClick={handleBioEdit}
-                              className="ml-2 cursor-pointer rounded-full p-1.5 text-gray-500 opacity-0 transition-all group-hover:opacity-100 hover:bg-blue-50 hover:text-blue-600"
+                              className="opacity-0 group-hover:opacity-100 p-1.5 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all ml-2 cursor-pointer"
                             >
                               <Edit2 size={14} />
                             </button>
@@ -272,48 +272,48 @@ export default function ProfilePage() {
                             type="date"
                             value={editBirthdate}
                             onChange={(e) => setEditBirthdate(e.target.value)}
-                            className="flex-1 rounded-lg border border-gray-300 p-2 text-sm focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                            className="flex-1 p-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           />
                           <button
                             onClick={handleBirthdateSave}
-                            className="cursor-pointer rounded-full p-1.5 text-green-600 transition-colors hover:bg-green-50"
+                            className="p-1.5 text-green-600 hover:bg-green-50 rounded-full transition-colors cursor-pointer"
                           >
                             <Check size={16} />
                           </button>
                           <button
                             onClick={handleBirthdateCancel}
-                            className="rounded-full p-1.5 text-gray-500 transition-colors hover:bg-gray-50"
+                            className="p-1.5 text-gray-500 hover:bg-gray-50 rounded-full transition-colors"
                           >
                             <X size={16} />
                           </button>
                         </div>
                       ) : (
-                        <div className="group flex items-center justify-between">
+                        <div className="flex items-center justify-between group">
                           <div className="flex items-center space-x-2">
                             <Calendar size={14} className="text-gray-500" />
                             {profileUser.birthdate ? (
-                              <span className="text-sm text-gray-600">
-                                Born{' '}
+                              <span className="text-gray-600 text-sm">
+                                Born{" "}
                                 {new Date(
-                                  profileUser.birthdate,
-                                ).toLocaleDateString('en-US', {
-                                  month: 'long',
-                                  day: 'numeric',
-                                  year: 'numeric',
+                                  profileUser.birthdate
+                                ).toLocaleDateString("en-US", {
+                                  month: "long",
+                                  day: "numeric",
+                                  year: "numeric",
                                 })}
                               </span>
                             ) : (
-                              <span className="text-sm text-gray-500 italic">
+                              <span className="text-gray-500 text-sm italic">
                                 {isCurrentUser
-                                  ? 'Add your birthdate'
-                                  : 'Birthdate not set'}
+                                  ? "Add your birthdate"
+                                  : "Birthdate not set"}
                               </span>
                             )}
                           </div>
                           {isCurrentUser && (
                             <button
                               onClick={handleBirthdateEdit}
-                              className="rounded-full p-1.5 text-gray-500 opacity-0 transition-all group-hover:opacity-100 hover:bg-blue-50 hover:text-blue-600"
+                              className="opacity-0 group-hover:opacity-100 p-1.5 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all"
                             >
                               <Edit2 size={14} />
                             </button>
@@ -325,14 +325,14 @@ export default function ProfilePage() {
                       <span>
                         <span className="font-semibold text-gray-900">
                           {entities.length}
-                        </span>{' '}
+                        </span>{" "}
                         tweets
                       </span>
                       <span>
-                        Joined{' '}
-                        {new Date().toLocaleDateString('en-US', {
-                          month: 'long',
-                          year: 'numeric',
+                        Joined{" "}
+                        {new Date().toLocaleDateString("en-US", {
+                          month: "long",
+                          year: "numeric",
                         })}
                       </span>
                     </div>
@@ -344,18 +344,17 @@ export default function ProfilePage() {
                       <button
                         onClick={toggleFollow}
                         disabled={isLoading}
-                        className={
-                          'cursor-pointer rounded-lg px-4 py-2 text-sm font-medium transition-all disabled:cursor-not-allowed disabled:opacity-50 ' +
-                          (isLoading || isFollowing
-                            ? 'border border-gray-300 text-gray-800 hover:bg-gray-300'
-                            : 'text-white hover:bg-blue-700') +
-                          ' ' +
-                          (isLoading || isFollowing
-                            ? 'bg-gray-200'
-                            : 'bg-blue-600')
-                        }
+                        className={"px-4 py-2 text-sm font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer " + (
+                          isLoading || isFollowing
+                            ? "text-gray-800 hover:bg-gray-300 border border-gray-300"
+                            : "text-white hover:bg-blue-700"
+                        ) + " " + (
+                          isLoading || isFollowing
+                            ? "bg-gray-200"
+                            : "bg-blue-600"
+                        )}
                       >
-                        {isFollowing ? 'Following' : 'Follow'}
+                        {isFollowing ? "Following" : "Follow"}
                       </button>
                     </div>
                   )}
@@ -388,27 +387,27 @@ export default function ProfilePage() {
 
           {entities.length === 0 && !loadingEntities && (
             <div className="p-12 text-center">
-              <p className="text-lg text-gray-500">No tweets found</p>
-              <p className="mt-2 text-sm text-gray-400">
+              <p className="text-gray-500 text-lg">No tweets found</p>
+              <p className="text-gray-400 text-sm mt-2">
                 This user hasn't posted any tweets yet.
               </p>
             </div>
           )}
 
           {hasMore ? (
-            <div className="flex items-center justify-center border-t border-gray-100 bg-white p-6">
+            <div className="p-6 flex justify-center items-center bg-white border-t border-gray-100">
               <button
                 onClick={loadMore}
                 disabled={loadingEntities}
-                className="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-medium text-white transition-all hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-300"
+                className="px-6 py-2.5 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-all"
               >
-                {loadingEntities ? 'Loading...' : 'Load more'}
+                {loadingEntities ? "Loading..." : "Load more"}
               </button>
             </div>
           ) : (
             entities.length > 0 && (
-              <div className="flex items-center justify-center border-t border-gray-100 bg-white p-6">
-                <span className="text-sm text-gray-500">No more tweets</span>
+              <div className="p-6 flex justify-center items-center bg-white border-t border-gray-100">
+                <span className="text-gray-500 text-sm">No more tweets</span>
               </div>
             )
           )}

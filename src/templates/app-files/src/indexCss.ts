@@ -1,5 +1,5 @@
-export const indexCss = `@import 'tailwindcss';
-@import 'tw-animate-css';
+export const indexCss = `@import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 

@@ -1,19 +1,19 @@
-export const ComponentsNotificationControlNotificationControlJsx = `import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAppNotifications } from '@replyke/react-js';
-import { CheckCheck } from 'lucide-react';
-import NotificationList from './notification-list';
-import NotificationTrigger from './notification-trigger';
+export const ComponentsNotificationControlNotificationControlJsx = `import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAppNotifications } from "@replyke/react-js";
+import { CheckCheck } from "lucide-react";
+import NotificationList from "./notification-list";
+import NotificationTrigger from "./notification-trigger";
 
-function NotificationControl({ notificationTemplates, theme = 'auto' }) {
+function NotificationControl({ notificationTemplates, theme = "auto" }) {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownPosition, setDropdownPosition] = useState({
-    position: 'absolute',
-    top: '100%',
+    position: "absolute",
+    top: "100%",
     right: 0,
-    left: 'auto',
-    marginTop: '8px',
+    left: "auto",
+    marginTop: "8px",
   });
   const dropdownRef = useRef(null);
   const triggerRef = useRef(null);
@@ -52,13 +52,13 @@ function NotificationControl({ notificationTemplates, theme = 'auto' }) {
     };
 
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-      window.addEventListener('resize', handleResize);
+      document.addEventListener("mousedown", handleClickOutside);
+      window.addEventListener("resize", handleResize);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      window.removeEventListener('resize', handleResize);
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("resize", handleResize);
     };
   }, [isOpen]);
 
@@ -66,11 +66,11 @@ function NotificationControl({ notificationTemplates, theme = 'auto' }) {
   const calculateDropdownPosition = () => {
     if (!triggerRef.current) {
       return {
-        position: 'absolute',
-        top: '100%',
+        position: "absolute",
+        top: "100%",
         right: 0,
-        left: 'auto',
-        marginTop: '8px',
+        left: "auto",
+        marginTop: "8px",
       };
     }
 
@@ -78,7 +78,7 @@ function NotificationControl({ notificationTemplates, theme = 'auto' }) {
     const viewportWidth = window.innerWidth;
     const dropdownWidth = Math.min(
       400,
-      viewportWidth <= 768 ? viewportWidth - 32 : 400,
+      viewportWidth <= 768 ? viewportWidth - 32 : 400
     );
     const padding = 16;
 
@@ -101,11 +101,11 @@ function NotificationControl({ notificationTemplates, theme = 'auto' }) {
       }
 
       return {
-        position: 'fixed',
-        top: triggerBottom + 8 + 'px',
-        left: leftPosition + 'px',
-        right: 'auto',
-        marginTop: '0px',
+        position: "fixed",
+        top: (triggerBottom + 8) + "px",
+        left: leftPosition + "px",
+        right: "auto",
+        marginTop: "0px",
       };
     }
 
@@ -121,37 +121,37 @@ function NotificationControl({ notificationTemplates, theme = 'auto' }) {
       // Try aligning to left edge of trigger
       if (triggerLeft + dropdownWidth + padding <= viewportWidth) {
         return {
-          position: 'absolute',
-          top: '100%',
-          right: 'auto',
+          position: "absolute",
+          top: "100%",
+          right: "auto",
           left: 0,
-          marginTop: '8px',
+          marginTop: "8px",
         };
       } else {
         // If both alignments would overflow, use fixed positioning like mobile
         const maxLeft = viewportWidth - dropdownWidth - padding;
         const idealLeft = Math.max(
           padding,
-          Math.min(maxLeft, triggerRight - dropdownWidth),
+          Math.min(maxLeft, triggerRight - dropdownWidth)
         );
 
         return {
-          position: 'fixed',
-          top: triggerRect.bottom + 8 + 'px',
-          left: idealLeft + 'px',
-          right: 'auto',
-          marginTop: '0px',
+          position: "fixed",
+          top: (triggerRect.bottom + 8) + "px",
+          left: idealLeft + "px",
+          right: "auto",
+          marginTop: "0px",
         };
       }
     }
 
     // Default: align to right edge (dropdown's right edge aligns with trigger's right edge)
     return {
-      position: 'absolute',
-      top: '100%',
+      position: "absolute",
+      top: "100%",
       right: 0,
-      left: 'auto',
-      marginTop: '8px',
+      left: "auto",
+      marginTop: "8px",
     };
   };
 
@@ -165,64 +165,52 @@ function NotificationControl({ notificationTemplates, theme = 'auto' }) {
     }
 
     switch (notification.type) {
-      case 'entity-upvote':
-        navigate('/e/' + notification.metadata.entityShortId);
+      case "entity-upvote":
+        navigate("/e/" + notification.metadata.entityShortId);
         break;
-      case 'entity-mention':
-        navigate('/e/' + notification.metadata.entityShortId);
+      case "entity-mention":
+        navigate("/e/" + notification.metadata.entityShortId);
         break;
-      case 'entity-comment':
+      case "entity-comment":
         navigate(
-          '/e/' +
-            notification.metadata.entityShortId +
-            '/?commentId=' +
-            notification.metadata.commentId,
+          "/e/" + notification.metadata.entityShortId + "/?commentId=" + notification.metadata.commentId
         );
         break;
-      case 'comment-upvote':
+      case "comment-upvote":
         navigate(
-          '/e/' +
-            notification.metadata.entityShortId +
-            '/?commentId=' +
-            notification.metadata.commentId,
+          "/e/" + notification.metadata.entityShortId + "/?commentId=" + notification.metadata.commentId
         );
         break;
-      case 'comment-mention':
+      case "comment-mention":
         navigate(
-          '/e/' +
-            notification.metadata.entityShortId +
-            '/?commentId=' +
-            notification.metadata.commentId,
+          "/e/" + notification.metadata.entityShortId + "/?commentId=" + notification.metadata.commentId
         );
         break;
-      case 'comment-reply':
+      case "comment-reply":
         navigate(
-          '/e/' +
-            notification.metadata.entityShortId +
-            '/?commentId=' +
-            notification.metadata.commentId,
+          "/e/" + notification.metadata.entityShortId + "/?commentId=" + notification.metadata.commentId
         );
         break;
-      case 'new-follow':
-        navigate('/u/' + notification.metadata.initiatorId);
+      case "new-follow":
+        navigate("/u/" + notification.metadata.initiatorId);
         break;
     }
   };
 
   // Simple dark theme detection
   const isDarkTheme =
-    theme === 'auto'
-      ? typeof window !== 'undefined' &&
-        window.matchMedia?.('(prefers-color-scheme: dark)').matches
-      : theme === 'dark';
+    theme === "auto"
+      ? typeof window !== "undefined" &&
+        window.matchMedia?.("(prefers-color-scheme: dark)").matches
+      : theme === "dark";
 
   // Theme-aware colors
   const colors = {
-    background: isDarkTheme ? 'oklch(0.205 0 0)' : '#ffffff',
-    border: isDarkTheme ? 'oklch(1 0 0 / 10%)' : '#e5e7eb',
-    text: isDarkTheme ? 'oklch(0.985 0 0)' : '#0f172a',
-    textMuted: isDarkTheme ? 'oklch(0.708 0 0)' : '#64748b',
-    separator: isDarkTheme ? 'oklch(1 0 0 / 10%)' : '#f1f5f9', // Much lighter separator for light theme
+    background: isDarkTheme ? "oklch(0.205 0 0)" : "#ffffff",
+    border: isDarkTheme ? "oklch(1 0 0 / 10%)" : "#e5e7eb",
+    text: isDarkTheme ? "oklch(0.985 0 0)" : "#0f172a",
+    textMuted: isDarkTheme ? "oklch(0.708 0 0)" : "#64748b",
+    separator: isDarkTheme ? "oklch(1 0 0 / 10%)" : "#f1f5f9", // Much lighter separator for light theme
   };
 
   return (
@@ -246,7 +234,7 @@ function NotificationControl({ notificationTemplates, theme = 'auto' }) {
       {isOpen && (
         <div
           ref={dropdownRef}
-          className="z-[60] rounded-[10px] border p-0 shadow-xl"
+          className="rounded-[10px] shadow-xl z-[60] p-0 border"
           style={{
             position: dropdownPosition.position,
             top: dropdownPosition.top,
@@ -254,9 +242,9 @@ function NotificationControl({ notificationTemplates, theme = 'auto' }) {
             left: dropdownPosition.left,
             marginTop: dropdownPosition.marginTop,
             width:
-              typeof window !== 'undefined' && window.innerWidth <= 768
-                ? Math.min(400, window.innerWidth - 32) + 'px'
-                : '400px',
+              typeof window !== "undefined" && window.innerWidth <= 768
+                ? Math.min(400, window.innerWidth - 32) + "px"
+                : "400px",
             backgroundColor: colors.background,
             borderColor: colors.border,
           }}
@@ -264,7 +252,7 @@ function NotificationControl({ notificationTemplates, theme = 'auto' }) {
           {/* Header */}
           <div className="flex items-center justify-between px-4 pt-4 pb-2">
             <h2
-              className="m-0 text-sm font-semibold"
+              className="text-sm font-semibold m-0"
               style={{
                 color: colors.text,
               }}
@@ -285,7 +273,7 @@ function NotificationControl({ notificationTemplates, theme = 'auto' }) {
             {unreadAppNotificationsCount > 0 && (
               <button
                 onClick={markAllNotificationsAsRead}
-                className="flex cursor-pointer items-center rounded border-none bg-transparent p-1 text-xs transition-colors duration-200 hover:opacity-80"
+                className="bg-transparent border-none p-1 text-xs cursor-pointer rounded flex items-center transition-colors duration-200 hover:opacity-80"
                 style={{
                   color: colors.textMuted,
                 }}
@@ -296,7 +284,7 @@ function NotificationControl({ notificationTemplates, theme = 'auto' }) {
                   e.currentTarget.style.color = colors.textMuted;
                 }}
               >
-                <CheckCheck className="mr-1 h-3 w-3" />
+                <CheckCheck className="w-3 h-3 mr-1" />
                 Mark all read
               </button>
             )}
@@ -304,7 +292,7 @@ function NotificationControl({ notificationTemplates, theme = 'auto' }) {
 
           {/* Separator */}
           <div
-            className="mx-4 h-px"
+            className="h-px mx-4"
             style={{
               backgroundColor: colors.separator,
             }}
