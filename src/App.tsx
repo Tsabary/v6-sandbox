@@ -5,8 +5,11 @@ import CodeEditor from './components/code-editor';
 import Preview from './components/preview';
 import Terminal from './components/terminal';
 import { VITE_REACT_TEMPLATE } from './templates/react-vite';
+import { useMediaQuery } from './hooks/use-media-query';
 
 export default function App() {
+  const isDesktop = useMediaQuery('(min-width: 720px)');
+
   const [webContainer, setWebContainer] = React.useState<WebContainer | null>(
     null,
   );
@@ -39,16 +42,21 @@ export default function App() {
 
   return (
     <div className="h-dvh">
-      <PanelGroup direction="horizontal">
+      <PanelGroup direction={isDesktop ? 'horizontal' : 'vertical'}>
         <Panel defaultSize={40} minSize={20}>
           <PanelGroup direction="vertical">
-            <Panel defaultSize={75} minSize={30}>
+            <Panel defaultSize={isDesktop ? 75 : 100} minSize={30}>
               <CodeEditor webContainer={webContainer} />
             </Panel>
-            <PanelResizeHandle className="resize-handle" />
-            <Panel defaultSize={25} minSize={15}>
-              <Terminal webContainer={webContainer} />
-            </Panel>
+
+            {isDesktop && (
+              <>
+                <PanelResizeHandle className="resize-handle" />
+                <Panel defaultSize={25} minSize={15}>
+                  <Terminal webContainer={webContainer} />
+                </Panel>
+              </>
+            )}
           </PanelGroup>
         </Panel>
         <PanelResizeHandle className="resize-handle" />
