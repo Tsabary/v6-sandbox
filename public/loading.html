@@ -1,1 +1,242 @@
-Use the terminal to run a command!
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loading...</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+          'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+          sans-serif;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        color: #e2e8f0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .loading-container {
+        text-align: center;
+        max-width: 400px;
+        padding: 2rem;
+      }
+
+      .loading-animation {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 2rem;
+        background: rgba(59, 130, 246, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .loading-animation::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 3px solid transparent;
+        border-top: 3px solid #3b82f6;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      .lottie-container {
+        width: 80px;
+        height: 80px;
+        z-index: 1;
+      }
+
+      .loading-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #f1f5f9;
+      }
+
+      .loading-subtitle {
+        font-size: 0.875rem;
+        color: #94a3b8;
+        margin-bottom: 1.5rem;
+      }
+
+      .loading-dots {
+        display: inline-flex;
+        gap: 0.25rem;
+      }
+
+      .dot {
+        width: 6px;
+        height: 6px;
+        background: #3b82f6;
+        border-radius: 50%;
+        animation: pulse 1.4s ease-in-out infinite both;
+      }
+
+      .dot:nth-child(1) {
+        animation-delay: -0.32s;
+      }
+      .dot:nth-child(2) {
+        animation-delay: -0.16s;
+      }
+      .dot:nth-child(3) {
+        animation-delay: 0s;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        80%,
+        100% {
+          transform: scale(0);
+          opacity: 0.5;
+        }
+        40% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .fade-in {
+        animation: fadeIn 0.8s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .status-text {
+        font-size: 0.75rem;
+        color: #64748b;
+        margin-top: 1rem;
+        height: 1rem;
+        transition: opacity 0.3s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading-container fade-in">
+      <div class="loading-animation">
+        <div class="lottie-container" id="lottie-animation"></div>
+      </div>
+
+      <h1 class="loading-title">Setting up your workspace</h1>
+      <p class="loading-subtitle">Initializing development environment</p>
+
+      <div class="loading-dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+
+      <div class="status-text" id="status-text">Starting WebContainer...</div>
+    </div>
+
+    <script type="module">
+      // Status messages rotation
+      const statusMessages = [
+        'Starting WebContainer...',
+        'Installing dependencies...',
+        'Setting up development server...',
+        'Almost ready...',
+      ];
+
+      let currentMessageIndex = 0;
+      const statusElement = document.getElementById('status-text');
+
+      function updateStatus() {
+        statusElement.style.opacity = '0';
+        setTimeout(() => {
+          statusElement.textContent = statusMessages[currentMessageIndex];
+          statusElement.style.opacity = '1';
+          currentMessageIndex =
+            (currentMessageIndex + 1) % statusMessages.length;
+        }, 150);
+      }
+
+      // Update status every 2 seconds
+      const statusInterval = setInterval(updateStatus, 5000);
+
+      // Try to load Lottie animation if available
+      async function loadLottieAnimation() {
+        try {
+          // Check if we have access to the dotlottie library
+          const { DotLottie } = await import(
+            '/node_modules/@lottiefiles/dotlottie-web/dist/index.js'
+          );
+
+          // You can replace this URL with your own .lottie file
+          // For now, we'll use a coding-themed animation from LottieFiles
+          const animationUrl = './loading.lottie';
+
+          const dotLottie = new DotLottie({
+            canvas: document.createElement('canvas'),
+            src: animationUrl,
+            loop: true,
+            autoplay: true,
+          });
+
+          const container = document.getElementById('lottie-animation');
+          container.appendChild(dotLottie.canvas);
+
+          // Hide the spinner when animation loads
+          const loadingAnim = document.querySelector('.loading-animation');
+          loadingAnim.style.setProperty('--show-spinner', 'none');
+        } catch (error) {
+          console.log('Lottie animation not available, using fallback spinner');
+          // Fallback: show a code icon using CSS
+          showCodeIcon();
+        }
+      }
+
+      function showCodeIcon() {
+        const container = document.getElementById('lottie-animation');
+        container.innerHTML = `
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="16,18 22,12 16,6"></polyline>
+                    <polyline points="8,6 2,12 8,18"></polyline>
+                </svg>
+            `;
+      }
+
+      // Load animation on page load
+      loadLottieAnimation();
+
+      // Clean up on page unload
+      window.addEventListener('beforeunload', () => {
+        clearInterval(statusInterval);
+      });
+    </script>
+  </body>
+</html>
