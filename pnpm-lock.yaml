@@ -7,9 +7,6 @@ settings:
 importers:
   .:
     dependencies:
-      '@lottiefiles/dotlottie-web':
-        specifier: ^0.52.2
-        version: 0.52.2
       '@monaco-editor/react':
         specifier: ^4.7.0
         version: 4.7.0(monaco-editor@0.52.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -475,12 +472,6 @@ packages:
     resolution:
       {
         integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==,
-      }
-
-  '@lottiefiles/dotlottie-web@0.52.2':
-    resolution:
-      {
-        integrity: sha512-aeXCMUB5RdusHrvZ3Py2KaMgQ0w7SdA8NFbPK+SpwqC1UW1CDFZl5vPLueZHju7vLhB1rpPvpQ5fQ0L/KEZt7w==,
       }
 
   '@monaco-editor/loader@1.5.0':
@@ -2585,8 +2576,6 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.4
 
   '@juggle/resize-observer@3.4.0': {}
-
-  '@lottiefiles/dotlottie-web@0.52.2': {}
 
   '@monaco-editor/loader@1.5.0':
     dependencies:
